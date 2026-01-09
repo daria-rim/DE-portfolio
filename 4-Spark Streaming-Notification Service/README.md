@@ -1,5 +1,3 @@
-Конечно! Вот обновлённая версия без указанных разделов:
-
 ---
 
 # 🚀 Spark Streaming: Restaurant Campaign Notification Service  
