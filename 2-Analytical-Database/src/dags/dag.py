@@ -11,8 +11,8 @@ import os
 
 
 # Конфигурация
-AWS_ACCESS_KEY_ID = "YCAJEiyNFq4wiOe_eMCMCXmQP"
-AWS_SECRET_ACCESS_KEY = "YCP1e96y4QI8OmcB4Eaf4q0nMHwhmtvGbDTgBeqS"
+AWS_ACCESS_KEY_ID = ""
+AWS_SECRET_ACCESS_KEY = ""
 BUCKET_NAME = 'sprint6'
 FILES_TO_DOWNLOAD = ['users.csv', 'groups.csv', 'dialogs.csv', 'group_log.csv']
 DOWNLOAD_PATH = '/data/'
@@ -22,7 +22,7 @@ VERTICA_CONN = {
     'host': 'vertica.tgcloudenv.ru',
     'port': 5433,
     'user': 'stv202507313',
-    'password': 'nl81hbaTaHLtxvQ',
+    'password': '',
     'database': 'dwh',
     'autocommit': True
 }
