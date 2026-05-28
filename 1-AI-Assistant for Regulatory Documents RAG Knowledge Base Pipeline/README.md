@@ -31,21 +31,22 @@ PDF → Markdown → Очистка → JSON (метаданные) → Chunking
 ---
 
 ## 🛠️ Технологический стек
-•	Реляционное хранилище: Supabase (PostgreSQL 15+)
-•	Векторное хранилище: Qdrant (Docker Compose)
-•	Оркестрация: Ручной запуск (run_full_pipeline.py)
-•	Источник данных: Локальная файловая система (PDF)
-•	Промежуточные форматы: Markdown, JSON
-•	Архитектура: Гибридная (реляционная + векторная), RLS, версионность
-•	Языки: SQL, Python
-•	Конвертация PDF: Docling, pypdf
-•	Обработка текста: Regex, langchain-text-splitters
-•	Векторизация: sentence-transformers, ai-forever/ru-en-RoSBERTa
-•	Индексация: GIN (триграммы, массивы), B-tree
-•	Загрузка данных: Supabase client, Qdrant client (batch upsert)
-•	Тестирование: pytest
-•	Контейнеризация: Docker, Docker Compose
-•	Логирование: Python logging
+
+- Реляционное хранилище: Supabase (PostgreSQL 15+)
+- Векторное хранилище: Qdrant (Docker Compose)
+- Оркестрация: Ручной запуск (run_full_pipeline.py)
+- Источник данных: Локальная файловая система (PDF)
+- Промежуточные форматы: Markdown, JSON
+- Архитектура: Гибридная (реляционная + векторная), RLS, версионность
+- Языки: SQL, Python
+- Конвертация PDF: Docling, pypdf
+- Обработка текста: Regex, langchain-text-splitters
+- Векторизация: sentence-transformers, ai-forever/ru-en-RoSBERTa
+- Индексация: GIN (триграммы, массивы), B-tree
+- Загрузка данных: Supabase client, Qdrant client (batch upsert)
+- Тестирование: pytest
+- Контейнеризация: Docker, Docker Compose
+- Логирование: Python logging
 
 ---
 
