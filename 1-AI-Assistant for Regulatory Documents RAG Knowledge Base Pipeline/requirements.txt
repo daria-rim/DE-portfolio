@@ -1,0 +1,23 @@
+# Ядро
+docling>=2.69.1
+langchain-text-splitters>=0.3.11
+sentence-transformers>=5.1.2
+
+# Базы данных и хранилища — без лишних зависимостей
+supabase==2.15.3
+qdrant-client>=1.9.0
+psycopg2>=2.9.11
+
+# Утилиты
+python-dotenv>=1.0.0
+pydantic>=2.13.1
+pydantic-settings>=2.11.0
+
+# Работа с файлами
+openpyxl>=3.1.5
+python-docx>=1.2.0
+python-pptx>=1.0.2
+pypdf>=6.10.2
+
+# Тесты
+pytest

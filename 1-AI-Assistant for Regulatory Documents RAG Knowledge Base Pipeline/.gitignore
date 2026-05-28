@@ -1,0 +1,35 @@
+qdrant_data/
+__pycache__/
+.pytest_cache/
+test.py
+test_connect.py
+test_insert_chunks.py
+test_insert_chunks_for_DE.py
+
+# Секреты
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+chunks_preview_100.txt
+chunks_preview_1000.txt
+
+
+
+# Output директории
+output/
+.output/cleaned
+.output/json
+.output/markdown
+# Окружение и кэш
+venv/
+__pycache__/
+.DS_Store
+
+# Игнорируем тяжелые данные и результаты работы
+
+
+
+# Логи
+*.log
