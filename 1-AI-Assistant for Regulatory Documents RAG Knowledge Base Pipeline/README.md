@@ -28,6 +28,227 @@ AI-ассистент для инженеров-проектировщиков �
 PDF → Markdown → Очистка → JSON (метаданные) → Chunking → Embeddings → Supabase + Qdrant
 ```
 
+**Схема метаданных:**
+```mermaid
+erDiagram
+    %% Таблицы и их связи на основе FOREIGN KEY из скрипта
+
+    users {
+        UUID id PK
+        TEXT email
+        TEXT subscription_type
+        BIGINT id_telegram
+        TIMESTAMPTZ created_at
+    }
+
+    subscription_plans {
+        UUID id PK
+        TEXT name
+        TEXT type
+        INT monthly_queries
+        INT max_users
+        INT max_documents
+        INT price_rub
+        BOOLEAN can_custom_kb
+        INT custom_kb_price_rub
+        TIMESTAMPTZ created_at
+    }
+
+    workspaces {
+        UUID id PK
+        TEXT name
+        TEXT billing_tier
+        INT user_count
+        INT document_count
+        INT queries_used_this_month
+        TEXT subscription_status
+        TIMESTAMPTZ trial_ends_at
+        TIMESTAMPTZ quota_reset_at
+        BOOLEAN custom_kb_enabled
+        TIMESTAMPTZ custom_kb_activated_at
+        UUID created_by FK
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    user_workspaces {
+        UUID user_id PK, FK
+        UUID workspace_id PK, FK
+        TEXT role
+        TIMESTAMPTZ joined_at
+        UUID invited_by FK
+    }
+
+    projects {
+        UUID id PK
+        UUID workspace_id FK
+        UUID created_by FK
+        TEXT name
+        TEXT description
+        JSONB project_metadata
+        BOOLEAN is_active
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    chat_sessions {
+        UUID id PK
+        UUID user_id FK
+        UUID project_id FK
+        TEXT title
+        JSONB context_window
+        INT message_count
+        BOOLEAN is_active
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    messages {
+        UUID id PK
+        UUID session_id FK
+        TEXT role
+        TEXT content
+        JSONB citations
+        JSONB metadata
+        INT token_count
+        UUID in_response_to FK
+        TIMESTAMPTZ created_at
+    }
+
+    documents {
+        UUID id PK
+        UUID workspace_id FK
+        UUID document_family_id
+        TEXT type
+        TEXT topic
+        TEXT designation
+        TEXT official_title
+        INT year
+        TEXT[] tags
+        DATE valid_from
+        DATE valid_to
+        BOOLEAN is_mandatory
+        TEXT visibility
+        TEXT source_type
+        UUID uploaded_by FK
+        TEXT version_status
+        UUID supersedes_id FK
+        UUID superseded_by_id FK
+        JSONB processing_metadata
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ updated_at
+    }
+
+    glossary_terms {
+        UUID id PK
+        TEXT term
+        TEXT definition
+        UUID source_doc_id FK
+        TEXT[] aliases
+        TIMESTAMPTZ created_at
+    }
+
+    document_references {
+        UUID id PK
+        UUID source_doc_id FK
+        TEXT ref_marker
+        TEXT resolved_title
+        UUID target_doc_id FK
+        TIMESTAMPTZ created_at
+    }
+
+    document_sections {
+        UUID id PK
+        UUID doc_id FK
+        TEXT section_code
+        TEXT section_title
+        TEXT hierarchy_path
+        INT level
+        UUID parent_section_id FK
+        TIMESTAMPTZ created_at
+    }
+
+    chunks {
+        UUID id PK
+        UUID qdrant_point_id
+        UUID doc_id FK
+        UUID section_id FK
+        UUID workspace_id FK
+        TEXT section_path
+        TEXT clause_start
+        TEXT clause_end
+        TEXT[] clause_numbers
+        TEXT clause_display
+        INT merged_clauses_count
+        INT chunk_index
+        TEXT content_type
+        UUID parent_chunk_id FK
+        TEXT content_url
+        TEXT text_content
+        INT token_count
+        TIMESTAMPTZ created_at
+    }
+
+    document_uploads {
+        UUID id PK
+        UUID workspace_id FK
+        UUID uploaded_by FK
+        TEXT original_filename
+        TEXT storage_path
+        TEXT mime_type
+        BIGINT file_size_bytes
+        TEXT processing_status
+        JSONB validation_errors
+        UUID resulting_doc_id FK
+        TIMESTAMPTZ created_at
+        TIMESTAMPTZ completed_at
+    }
+
+    query_cache {
+        UUID id PK
+        TEXT query_hash
+        TEXT normalized_query
+        TEXT response_text
+        JSONB citations
+        INT hits
+        TIMESTAMPTZ last_used
+        TIMESTAMPTZ created_at
+    }
+
+    %% Связи (JOINs / Foreign Keys)
+
+    users ||--o{ workspaces : "created_by"
+    users ||--o{ user_workspaces : "user_id"
+    users ||--o{ user_workspaces : "invited_by"
+    users ||--o{ projects : "created_by"
+    users ||--o{ chat_sessions : "user_id"
+    users ||--o{ documents : "uploaded_by"
+    users ||--o{ document_uploads : "uploaded_by"
+
+    workspaces ||--o{ user_workspaces : "workspace_id"
+    workspaces ||--o{ projects : "workspace_id"
+    workspaces ||--o{ documents : "workspace_id"
+    workspaces ||--o{ chunks : "workspace_id"
+    workspaces ||--o{ document_uploads : "workspace_id"
+
+    projects ||--o{ chat_sessions : "project_id"
+
+    chat_sessions ||--o{ messages : "session_id"
+    messages ||--o{ messages : "in_response_to (self-ref)"
+
+    documents ||--o{ glossary_terms : "source_doc_id"
+    documents ||--o{ document_references : "source_doc_id"
+    documents ||--o{ document_references : "target_doc_id"
+    documents ||--o{ document_sections : "doc_id"
+    documents ||--o{ chunks : "doc_id"
+    documents ||--o{ document_uploads : "resulting_doc_id"
+    documents ||--o{ documents : "supersedes_id / superseded_by_id (self-ref)"
+
+    document_sections ||--o{ document_sections : "parent_section_id (self-ref)"
+    document_sections ||--o{ chunks : "section_id"
+
+    chunks ||--o{ chunks : "parent_chunk_id (self-ref)"
+```
 ---
 
 ## 🛠️ Технологический стек
