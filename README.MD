@@ -15,6 +15,7 @@
 - **Тестирование:** pytest
 - **Контейнеризация:** Docker, Docker Compose
 
+## Cсылка: https://github.com/daria-rim/AI-Assistant-with-RAG
 ---
 
 # 📦 DWH: Courier Settlement Report. Расчёт выплат курьерам
@@ -30,55 +31,7 @@
 - **Язык**: Python 3.9+
 - **Инструменты**: SQL, REST, JSON, пагинация (limit/offset)
 
----
-
-# 📊 Analytical Database: Social Media Group Engagement Analysis
-
-> Расширение аналитического хранилища данных (DWH) новым источником — логами действий пользователей в группах — и создание механизма для идентификации сообществ с высокой конверсией вовлечения участников.
-
----
-
-## 🛠 Технологический стек
-- **Хранилище**: Vertica (колоночная СУБД)
-- **Оркестрация**: Apache Airflow
-- **Источник данных**: Amazon S3
-- **Архитектура**: Data Vault 2.0
-- **Языки**: SQL, Python (pandas)
-- **Обработка данных**: CTE, оконные функции, JOIN-операции
-
----
-
-# 🗺️ Data Lake: Social Network User Geo-Analytics
-
-> Построение Data Lake с многослойной архитектурой для обработки геоданных пользователей, создания аналитических витрин и системы рекомендаций друзей на основе географической близости и поведенческих паттернов.
-
----
-
-## 🛠 Технологический стек
-- **Обработка данных:** Apache Spark (PySpark)
-- **Оркестрация:** Apache Airflow
-- **Хранилище:** HDFS (Hadoop Distributed File System)
-- **Формат данных:** Parquet
-- **Язык:** Python 3.x
-- **Библиотеки:** PySpark SQL
-
----
-
-# 🚀 Spark Streaming: Restaurant Campaign Notification Service  
-
-> Потоковый сервис на PySpark для уведомления подписчиков ресторанов об акциях в реальном времени
-
----
-
-## 🛠 Технологический стек  
-- **Обработка данных:** Apache Spark (Structured Streaming)  
-- **Источники данных:** Kafka, PostgreSQL  
-- **Язык:** Python (PySpark)  
-- **Протоколы:** SASL_SSL, SCRAM-SHA-512  
-- **Формат данных:** JSON  
-- **Оркестрация:** Spark Streaming Jobs  
-- **Базы данных:** PostgreSQL (Docker)  
-
+## Cсылка: https://github.com/daria-rim/Couriers-multi-dwh
 ---
 
 # 📊 FinTech DWH: Global Transaction Analytics Platform
@@ -95,4 +48,5 @@
 - **Библиотеки:** psycopg2, vertica-python
 - **Архитектура:** Инкрементальная загрузка, снежинка (STG → DWH)
 
+## Cсылка: https://github.com/daria-rim/FinTech-DWH
 ---
